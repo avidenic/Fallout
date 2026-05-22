@@ -22,7 +22,6 @@ using Fallout.Common.Utilities;
 using Fallout.Components;
 using static Fallout.Common.ControlFlow;
 using static Fallout.Common.Tools.DotNet.DotNetTasks;
-using static Fallout.Common.Tools.ReSharper.ReSharperTasks;
 
 [DotNetVerbosityMapping]
 [ShutdownDotNetAfterServerBuild]
@@ -37,8 +36,6 @@ partial class Build
         IPack,
         ITest,
         IReportCoverage,
-        IReportIssues,
-        IReportDuplicates,
         IPublish,
         ICreateGitHubRelease
 {
@@ -100,17 +97,6 @@ partial class Build
 
     bool IReportCoverage.CreateCoverageHtmlReport => true;
     bool IReportCoverage.ReportToCodecov => false;
-
-    IEnumerable<(string PackageId, string Version)> IReportIssues.InspectCodePlugins
-        => new (string PackageId, string Version)[]
-           {
-               new("ReSharperPlugin.CognitiveComplexity", ReSharperPluginLatest)
-           };
-
-    bool IReportIssues.InspectCodeFailOnWarning => false;
-    bool IReportIssues.InspectCodeReportWarnings => true;
-    IEnumerable<string> IReportIssues.InspectCodeFailOnIssues => new string[0];
-    IEnumerable<string> IReportIssues.InspectCodeFailOnCategories => new string[0];
 
     // Local Terminal runs use a placeholder version so packed nupkgs don't
     // collide with real releases. CI runs let Nerdbank.GitVersioning inject the

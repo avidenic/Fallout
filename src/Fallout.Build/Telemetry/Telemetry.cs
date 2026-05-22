@@ -7,8 +7,6 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using Fallout.Common.IO;
 using Fallout.Common.ProjectModel;
 using Fallout.Common.Utilities;
@@ -27,15 +25,13 @@ internal static partial class Telemetry
     public const string LegacyOptOutEnvironmentKey = "NUKE_TELEMETRY_OPTOUT";
     public const int CurrentVersion = 1;
 
-    // Telemetry is currently a no-op for Fallout: the previous InstrumentationKey routed data
-    // to the original NUKE maintainer's Azure Application Insights, which we don't own and shouldn't
-    // populate. When/if we stand up a Fallout-controlled endpoint, fill in the key here.
-    // Original NUKE key (do NOT reuse): "4b987be9-f807-4846-b777-4291f3a5ad8b"
-    private const string InstrumentationKey = "";
+    // Telemetry is currently a no-op for Fallout. The original NUKE maintainer owned an
+    // Azure Application Insights endpoint we can't reuse; Microsoft.ApplicationInsights was
+    // dropped from our deps in #79. The awareness/disclosure machinery below stays so we can
+    // wire up a Fallout-controlled backend later without re-introducing the consent flow.
     private const string VersionPropertyName = "FalloutTelemetryVersion";
     private const string LegacyVersionPropertyName = "NukeTelemetryVersion";
 
-    private static readonly TelemetryClient s_client;
     private static readonly int? s_confirmedVersion;
 
     static Telemetry()
@@ -46,22 +42,9 @@ internal static partial class Telemetry
         if (optoutParameter == "1" || optoutParameter.EqualsOrdinalIgnoreCase(bool.TrueString))
             return;
 
-        // No telemetry endpoint configured for Fallout yet — short-circuit before doing any work.
-        // The awareness/disclosure plumbing stays in place for when we wire up a real endpoint.
-        if (string.IsNullOrEmpty(InstrumentationKey))
-            return;
-
-        ProjectModelTasks.Initialize();
-        s_confirmedVersion = SuppressErrors(CheckAwareness, includeStackTrace: true);
-        if (s_confirmedVersion == null)
-            return;
-
-        var configuration = TelemetryConfiguration.CreateDefault();
-        configuration.ConnectionString = $"InstrumentationKey={InstrumentationKey}";
-        s_client = new TelemetryClient(configuration);
-        s_client.Context.Session.Id = Guid.NewGuid().ToString();
-        s_client.Context.Location.Ip = "N/A";
-        s_client.Context.Cloud.RoleInstance = "N/A";
+        // No telemetry endpoint configured for Fallout yet — short-circuit. When a backend lands,
+        // re-enable by calling ProjectModelTasks.Initialize() + CheckAwareness() here and wiring
+        // the resulting consent through to TrackEvent (in Telemetry.Events.cs).
     }
 
     private static int? CheckAwareness()

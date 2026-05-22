@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.ApplicationInsights" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" />
     <PackageReference Include="NJsonSchema" />
     <PackageReference Include="NJsonSchema.NewtonsoftJson" />

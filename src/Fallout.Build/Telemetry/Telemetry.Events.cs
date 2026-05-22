@@ -79,23 +79,10 @@ internal partial class Telemetry
 
     private static void TrackEvent(string eventName, Func<Dictionary<string, string>> propertiesProvider)
     {
-        if (s_client == null)
-            return;
-
-        try
-        {
-            var properties = propertiesProvider.Invoke();
-            // TODO: logging additional
-            Log.Verbose("Sending {EventName} telemetry event ...", eventName);
-            var longestPropertyName = properties.Keys.Max(x => x.Length);
-            properties.OrderBy(x => x.Key).ForEach(x => Log.Verbose("  {Key} = {Value}", x.Key.PadRight(longestPropertyName), x.Value ?? "<null>"));
-
-            s_client.TrackEvent(eventName, properties);
-            s_client.Flush();
-        }
-        catch (Exception exception)
-        {
-            Log.Verbose(exception, "Failed to sent {EventName} telemetry event", eventName);
-        }
+        // No-op until a Fallout-controlled telemetry backend lands (#79). Public callers
+        // (BuildStarted, TargetSucceeded, etc.) stay so we don't have to thread the change
+        // back through their call sites when telemetry is reintroduced.
+        _ = eventName;
+        _ = propertiesProvider;
     }
 }
