@@ -13,10 +13,10 @@ $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 # CONFIGURATION
 ###########################################################################
 
-$BuildProjectFile = "$PSScriptRoot\_BUILD_DIRECTORY_\_BUILD_PROJECT_NAME_.csproj"
-$TempDirectory = "$PSScriptRoot\_ROOT_DIRECTORY_\.fallout\temp"
+$BuildProjectFile = Join-Path $PSScriptRoot '_BUILD_DIRECTORY_/_BUILD_PROJECT_NAME_.csproj'
+$TempDirectory = Join-Path $PSScriptRoot '_ROOT_DIRECTORY_/.fallout/temp'
 
-$DotNetGlobalFile = "$PSScriptRoot\_ROOT_DIRECTORY_\global.json"
+$DotNetGlobalFile = Join-Path $PSScriptRoot '_ROOT_DIRECTORY_/global.json'
 $DotNetInstallUrl = "https://dot.net/v1/dotnet-install.ps1"
 $DotNetChannel = "STS"
 
@@ -39,7 +39,7 @@ if ($null -ne (Get-Command "dotnet" -ErrorAction SilentlyContinue) -and `
 }
 else {
     # Download install script
-    $DotNetInstallFile = "$TempDirectory\dotnet-install.ps1"
+    $DotNetInstallFile = Join-Path $TempDirectory 'dotnet-install.ps1'
     New-Item -ItemType Directory -Path $TempDirectory -Force | Out-Null
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     (New-Object System.Net.WebClient).DownloadFile($DotNetInstallUrl, $DotNetInstallFile)
@@ -53,13 +53,13 @@ else {
     }
 
     # Install by channel or version
-    $DotNetDirectory = "$TempDirectory\dotnet-win"
+    $DotNetDirectory = Join-Path $TempDirectory 'dotnet-win'
     if (!(Test-Path variable:DotNetVersion)) {
         ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Channel $DotNetChannel -NoPath }
     } else {
         ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Version $DotNetVersion -NoPath }
     }
-    $env:DOTNET_EXE = "$DotNetDirectory\dotnet.exe"
+    $env:DOTNET_EXE = Join-Path $DotNetDirectory 'dotnet.exe'
     $env:PATH = "$DotNetDirectory;$env:PATH"
 }
 
