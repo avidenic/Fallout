@@ -1,0 +1,60 @@
+﻿{
+  Diagnostics: [
+    {
+      Message: Type 'Fallout.Common.SealedThing' was skipped by the transition-shim generator (kind: sealed-class). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+      Severity: Warning,
+      WarningLevel: 1,
+      Descriptor: {
+        Id: SHIM001,
+        Title: Transition-shim type skipped (Hard tier),
+        Description: The transition-shim generator's Easy tier covers classes, abstract classes, interfaces, and attributes. Sealed classes, static classes, enums, and delegates need richer mechanisms (member-by-member delegation, etc.) and are deferred.,
+        MessageFormat: Type '{0}' was skipped by the transition-shim generator (kind: {1}). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+        Category: Migration,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
+    },
+    {
+      Message: Type 'Fallout.Common.StaticHelpers' was skipped by the transition-shim generator (kind: static-class). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+      Severity: Warning,
+      WarningLevel: 1,
+      Descriptor: {
+        Id: SHIM001,
+        Title: Transition-shim type skipped (Hard tier),
+        Description: The transition-shim generator's Easy tier covers classes, abstract classes, interfaces, and attributes. Sealed classes, static classes, enums, and delegates need richer mechanisms (member-by-member delegation, etc.) and are deferred.,
+        MessageFormat: Type '{0}' was skipped by the transition-shim generator (kind: {1}). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+        Category: Migration,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
+    },
+    {
+      Message: Type 'Fallout.Common.MyEnum' was skipped by the transition-shim generator (kind: enum). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+      Severity: Warning,
+      WarningLevel: 1,
+      Descriptor: {
+        Id: SHIM001,
+        Title: Transition-shim type skipped (Hard tier),
+        Description: The transition-shim generator's Easy tier covers classes, abstract classes, interfaces, and attributes. Sealed classes, static classes, enums, and delegates need richer mechanisms (member-by-member delegation, etc.) and are deferred.,
+        MessageFormat: Type '{0}' was skipped by the transition-shim generator (kind: {1}). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+        Category: Migration,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
+    },
+    {
+      Message: Type 'Fallout.Common.PrivateCtorOnly' was skipped by the transition-shim generator (kind: no-accessible-ctor). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+      Severity: Warning,
+      WarningLevel: 1,
+      Descriptor: {
+        Id: SHIM001,
+        Title: Transition-shim type skipped (Hard tier),
+        Description: The transition-shim generator's Easy tier covers classes, abstract classes, interfaces, and attributes. Sealed classes, static classes, enums, and delegates need richer mechanisms (member-by-member delegation, etc.) and are deferred.,
+        MessageFormat: Type '{0}' was skipped by the transition-shim generator (kind: {1}). Consumers relying on this via the Nuke.* shim will need to migrate via 'fallout-migrate'.,
+        Category: Migration,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
+    }
+  ]
+}

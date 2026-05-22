@@ -23,6 +23,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Fallout.Common\Fallout.Common.csproj" />
     <ProjectReference Include="..\..\Fallout.Build\Fallout.Build.csproj" />
+    <ProjectReference Include="..\..\Fallout.SourceGenerators\Fallout.SourceGenerators.csproj"
+                      ReferenceOutputAssembly="false"
+                      OutputItemType="Analyzer" />
   </ItemGroup>
 
 </Project>
