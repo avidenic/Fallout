@@ -66,6 +66,10 @@ Images, icons, logos, and other non-code binary content live under `.assets/`. T
 
 Every project under `src/` has a sibling under `tests/` (e.g. `src/Fallout.Common/` → `tests/Fallout.Common.Tests/`).
 
+## Engine internals
+
+This file covers *layout*. For how the build orchestrator works inside — the static-state model, the god class, and the `[Foundation]` de-statification epic that reshapes it (with as-is / to-be diagrams) — see [engine-de-statification.md](engine-de-statification.md).
+
 ## Build conventions
 
 - **Central package versions.** All `PackageReference` versions live in `Directory.Packages.props`. Never inline `Version=` on a `PackageReference` — the build will error.
